@@ -18,7 +18,7 @@ def parse_logs(line: str) -> dict | None:
         return None
 
 
-def load_logs(path: str):
+def load_logs(path: str) -> list:
     """
     Loads and parses logs from a file, returning a list of valid entries.
     """
@@ -40,7 +40,7 @@ def load_logs(path: str):
     return logs
 
 
-def filter_logs_by_level(logs, level: str):
+def filter_logs_by_level(logs, level: str) -> list:
     """
     Filters logs by the specified log level.
     """
@@ -48,7 +48,7 @@ def filter_logs_by_level(logs, level: str):
     return [log for log in logs if log["level"].casefold() == level]
 
 
-def count_logs_by_level(logs):
+def count_logs_by_level(logs) -> dict:
     """
     Counts the number of logs by level.
     """
