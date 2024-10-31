@@ -5,17 +5,18 @@ def parse_logs(line: str) -> dict | None:
     """
     Parses a log line into components: date, time, log level, and message.
     """
-    try:
-        date, time, level, message = line.split(" ", 3)
-        return {
+    parts = line.strip().split(" ", 3)
+    if len(parts) != 4:
+        return None
+
+    date, time, level, message = parts
+    return {
             "date": date,
             "time": time,
             "level": level,
             "message": message.strip()
         }
-    except ValueError:
-        # Return None if the line does not match the expected format
-        return None
+
 
 
 def load_logs(path: str) -> list:
