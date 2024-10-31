@@ -59,14 +59,18 @@ def count_logs_by_level(logs) -> dict:
     return levels_count
 
 
-def display_log_counts(log_counts):
+def display_log_counts(log_counts,
+                       header_level="Level",
+                       header_count="Count",
+                       divider_header=" | ",
+                       divider_body="-",
+                       empty_message="No log data available."):
     """
     Displays a table with the number of logs per level.
     """
-    header_level = "Рівень логування"
-    header_count = "Кількість"
-    divider_header = " | "
-    divider_body = "-"
+    if not log_counts:
+        print(empty_message)
+        return
 
     max_level_width = max(len(header_level), max((len(level) for level in log_counts), default=0))
     max_count_width = max(len(header_count), max((len(str(count)) for count in log_counts.values()), default=0))
@@ -98,7 +102,11 @@ def main():
 
     # Count and display statistics
     counts = count_logs_by_level(logs)
-    display_log_counts(counts)
+    display_log_counts(counts,
+                        header_level = "Рівень логування",
+                        header_count = "Кількість",
+                        divider_header = " | ",
+                        divider_body = "-")
 
     # Filter by level if specified
     if log_level:
