@@ -20,22 +20,25 @@ def change_contact(args, contacts):
         contacts[name] = phone
         return f"{Fore.GREEN}Contact {name} updated."
     else:
-        return f"{Fore.YELLOW}Error: Contact {name} not found."
+        return f"{Fore.YELLOW}Contact {name} not found."
 
 
 @input_error
 def show_phone(args, contacts):
     name = args[0]
+    if len(contacts) == 0:
+        return f"{Fore.YELLOW}Your phonebook empty 😒"
+
     if name in contacts:
         return f"📔{Fore.CYAN}{name} : 📞{Fore.GREEN}{contacts[name]}"
     else:
-        return f"{Fore.YELLOW}Error: {name} not found."
+        return f"{Fore.YELLOW}{name} not found in your phone book."
 
 
 @input_error
 def show_all(contacts):
     if not contacts:
-        return f"{Fore.YELLOW}No contacts found."
+        return f"{Fore.YELLOW}Your phonebook empty 😒"
 
     res = []
     for name, phone in contacts.items():
