@@ -1,6 +1,7 @@
 from colorama import Fore
 from decorators.input_error import input_error
 
+
 @input_error
 def parse_input(user_input):
     cmd, *args = user_input.split()
@@ -13,8 +14,12 @@ def add_contact(args, contacts):
     contacts[name] = phone
     return f"{Fore.GREEN}Contact {name} added."
 
+
 @input_error
 def change_contact(args, contacts):
+    if len(contacts) == 0:
+        return f"{Fore.YELLOW}Your phonebook empty 😒"
+
     name, phone = args
     if name in contacts:
         contacts[name] = phone
