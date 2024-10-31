@@ -65,12 +65,20 @@ def display_log_counts(log_counts):
     """
     header_level = "Рівень логування"
     header_count = "Кількість"
+    divider_header = " | "
+    divider_body = "-"
 
-    print(f"{header_level} | {header_count}")
-    print("-" * (len(header_level) + len(header_count) + 3))
+    max_level_width = max(len(header_level), max((len(level) for level in log_counts), default=0))
+    max_count_width = max(len(header_count), max((len(str(count)) for count in log_counts.values()), default=0))
+
+    header = f"{header_level:<{max_level_width}}{divider_header}{header_count:<{max_count_width}}"
+    separator = divider_body * (max_level_width + len(divider_header) + max_count_width)
+
+    print(header)
+    print(separator)
 
     for level, count in log_counts.items():
-        print(f"{level:<16} | {count}")
+        print(f"{level:<{max_level_width}}{divider_header}{count:<{max_count_width}}")
 
 
 def main():
