@@ -44,8 +44,8 @@ def filter_logs_by_level(logs, level: str) -> list:
     """
     Filters logs by the specified log level.
     """
-    level = level.casefold()
-    return [log for log in logs if log["level"].casefold() == level]
+    level_lower = level.casefold()
+    return list(filter(lambda log: log.get("level", "").casefold() == level_lower, logs))
 
 
 def count_logs_by_level(logs) -> dict:
