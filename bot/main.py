@@ -1,6 +1,7 @@
 from colorama import Fore
 from decorators.input_error import input_error
 
+@input_error
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -8,44 +9,30 @@ def parse_input(user_input):
 
 @input_error
 def add_contact(args, contacts):
-    if len(args) < 2:
-        return f"{Fore.RED}Error: Please provide both name and phone number. Usage: add [name] [phone]"
-
     name, phone = args
     contacts[name] = phone
     return f"{Fore.GREEN}Contact {name} added."
 
 @input_error
 def change_contact(args, contacts):
-    if len(args) < 2:
-        return f"{Fore.RED}Error: Please provide both name and new phone number. Usage: change [name] [new phone]"
-
     name, phone = args
     if name in contacts:
         contacts[name] = phone
         return f"{Fore.GREEN}Contact {name} updated."
-    else:
-        return f"{Fore.RED}Error: Contact {name} not found."
+
 
 @input_error
 def show_phone(args, contacts):
-    if len(args) == 0:
-        return f"{Fore.RED}Error: Please provide name. Usage: phone [name]"
-
     name = args[0]
     if name in contacts:
-        return f"{Fore.GREEN}{name}: {contacts[name]}"
-    else:
-        return f"{Fore.RED}Error: {name} not found."
+        return f"📔{Fore.CYAN}{name} : 📞{Fore.GREEN}{contacts[name]}"
+
 
 @input_error
 def show_all(contacts):
-    if not contacts:
-        return f"{Fore.YELLOW}No contacts found."
-
     res = []
     for name, phone in contacts.items():
-        res.append(f"{Fore.CYAN}{name}: {Fore.GREEN}{phone}")
+        res.append(f"📔{Fore.CYAN}{name} : 📞{Fore.GREEN}{phone}")
     return "\n".join(res)
 
 def show_help():

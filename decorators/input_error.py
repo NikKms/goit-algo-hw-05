@@ -6,11 +6,14 @@ def input_error(func):
     """
     def inner(*args, **kwargs):
         try:
-            return func(*args, **kwargs)
+            result =  func(*args, **kwargs)
+            if result is None or result == "":
+                return f"{Fore.YELLOW}😱 Nothing found."
+            return result
         except KeyError:
             return f"{Fore.RED}Error: Contact not found."
         except ValueError:
-            return f"{Fore.RED}Error: Please provide valid name and phone number."
+            return f"{Fore.RED}Error: Error: Please provide both command, name and phone number. Usage: [command] [name] [phone]"
         except IndexError:
             return f"{Fore.RED}Error: Missing required arguments. Please check your input."
     return inner
