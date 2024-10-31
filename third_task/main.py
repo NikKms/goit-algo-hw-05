@@ -1,4 +1,5 @@
 import sys
+from collections import defaultdict
 
 
 def parse_logs(line: str) -> dict | None:
@@ -25,13 +26,13 @@ def load_logs(path: str) -> list:
     """
     logs = list()
     try:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
                 if not line:
                     continue
                 entry = parse_logs(line)
-                if entry:  # Only add valid entries
+                if entry:
                     logs.append(entry)
     except FileNotFoundError:
         print(f'Error: File "{path}" not found')
@@ -53,10 +54,11 @@ def count_logs_by_level(logs) -> dict:
     """
     Counts the number of logs by level.
     """
-    levels_count = {}
+    levels_count = defaultdict(int)
     for log in logs:
         level = log['level']
-        levels_count[level] = levels_count.get(level, 0) + 1
+        levels_count[level] += 1
+
     return levels_count
 
 
