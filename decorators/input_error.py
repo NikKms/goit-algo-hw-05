@@ -1,15 +1,9 @@
 from colorama import Fore
 
 def input_error(func):
-    """
-    A decorator that handles common user input errors for bot commands.
-    """
     def inner(*args, **kwargs):
         try:
-            result =  func(*args, **kwargs)
-            if result is None or result == "":
-                return f"{Fore.YELLOW}😱 Nothing found."
-            return result
+            return func(*args, **kwargs)
         except KeyError:
             return f"{Fore.RED}Error: Contact not found."
         except ValueError:

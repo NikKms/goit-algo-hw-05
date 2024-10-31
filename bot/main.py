@@ -19,6 +19,8 @@ def change_contact(args, contacts):
     if name in contacts:
         contacts[name] = phone
         return f"{Fore.GREEN}Contact {name} updated."
+    else:
+        return f"{Fore.YELLOW}Error: Contact {name} not found."
 
 
 @input_error
@@ -26,10 +28,15 @@ def show_phone(args, contacts):
     name = args[0]
     if name in contacts:
         return f"📔{Fore.CYAN}{name} : 📞{Fore.GREEN}{contacts[name]}"
+    else:
+        return f"{Fore.YELLOW}Error: {name} not found."
 
 
 @input_error
 def show_all(contacts):
+    if not contacts:
+        return f"{Fore.YELLOW}No contacts found."
+
     res = []
     for name, phone in contacts.items():
         res.append(f"📔{Fore.CYAN}{name} : 📞{Fore.GREEN}{phone}")
